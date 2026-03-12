@@ -1,14 +1,17 @@
+networks:
+  dokploy-network:
+    external: true
+
 services:
   vane:
     image: itzcrazykns1337/vane:latest
     build:
       context: .
-    ports:
-      - '3000:3000'
-    volumes:
-      - data:/home/vane/data
     restart: unless-stopped
-
-volumes:
-  data:
-    name: 'vane-data'
+    ports:
+      - "3010:3000"
+    networks:
+      - dokploy-network
+    volumes:
+      - ../files/data:/home/vane/data
+      - ../files/uploads:/home/vane/uploads
